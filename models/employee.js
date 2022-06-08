@@ -43,4 +43,4 @@ const employeeScheme = new mongoose.Schema(
 );
 
 // Export the Schema with the name Employee.
-module.exports = mongoose.model("", employeeScheme);
+module.exports = mongoose.model("Employee", employeeScheme);
