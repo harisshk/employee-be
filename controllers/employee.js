@@ -1,6 +1,5 @@
-const Bike = require('../models/bike')
 const { StatusCodes } = require("http-status-codes");
-const User = require('../models/user');
+const Employee = require('../models/employee');
 
 const createEmployee = async (req, res) => {
     try {
@@ -21,70 +20,67 @@ const createEmployee = async (req, res) => {
     } catch (error) {
         console.log(err)
         return res.status(StatusCodes.BAD_REQUEST).json({
-            message: "Error in creating the Feature",
+            message: "Error in creating the Employee",
             success: false,
             err: error.message,
         });
     }
 }
 
-const editBikeData = async (req, res) => {
+const editEmployeeData = async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedBikeData = await Bike.findOneAndUpdate(
+        const updatedEmployeeData = await Employee.findOneAndUpdate(
             { _id: id },
             { $set: req.body }
         );
 
         res.status(StatusCodes.OK).json(({
             success: true,
-            data: updatedBikeData
+            data: updatedEmployeeData
         }))
 
     } catch (error) {
         console.log(error)
         return res.status(StatusCodes.BAD_REQUEST).json({
-            message: "Error in updating the Bike",
+            message: "Error in updating the Employee",
             success: false,
             err: error.message,
         });
     }
 }
 
-
-const getBikeData = async (req, res) => {
+const getEmployeeData = async (req, res) => {
     try {
-
         const { id } = req.params;
-        const bikeData = await Bike.findOne({ _id: id });
+        const employeeData = await Employee.findOne({ _id: id });
 
         res.status(StatusCodes.OK).json(({
             success: true,
-            data: bikeData
+            data: employeeData
         }))
 
     } catch (error) {
         return res.status(StatusCodes.BAD_REQUEST).json({
-            message: "Error in getting the Bike Data",
+            message: "Error in getting the Employee Data",
             success: false,
             err: error.message,
         });
     }
 }
 
-const getAllBikeDataByOwner = async (req, res) => {
+const getAllEmployees = async (req, res) => {
     try {
-        const { owner } = req.params;
-        const bikeData = await Bike.find({ owner, isDeleted: false }).populate('owner');
+        const employeeData = await Employee.find({ isDeleted: false });
 
         res.status(StatusCodes.OK).json(({
             success: true,
-            data: bikeData
+            data: employeeData
         }))
 
     } catch (error) {
         return res.status(StatusCodes.BAD_REQUEST).json({
-            message: "Error in getting the Bike Data",
+            message: "Error in getting the Employee Data",
             success: false,
             err: error.message,
         });
@@ -92,22 +88,23 @@ const getAllBikeDataByOwner = async (req, res) => {
 }
 
 
-const getAllBikeData = async (req, res) => {
+const deleteEmployeeData = async (req, res) => {
     try {
-        const bikeData = await Bike.find({ isDeleted: false }).populate('owner');
+        const { id } = req.params;
+        const employeeData = await Employee.findByIdAndDelete({ _id: id });
 
         res.status(StatusCodes.OK).json(({
             success: true,
-            data: bikeData
+            data: employeeData
         }))
 
     } catch (error) {
         return res.status(StatusCodes.BAD_REQUEST).json({
-            message: "Error in getting the Bike Data",
+            message: "Error in getting the Employee Data",
             success: false,
             err: error.message,
         });
     }
 }
 
-module.exports = { createBikeData, editBikeData, getBikeData, getAllBikeDataByOwner, getAllBikeData }
+module.exports = { createEmployee, editEmployeeData, getEmployeeData, getAllEmployees, deleteEmployeeData }
