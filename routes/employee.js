@@ -1,91 +1,83 @@
 /** Express router providing user related routes
- * @module routes/bike
+ * @module routes/employee
  * @requires express
  */
 
 /**
  * express module
  * @const
- * @namespace bikeRoutes
+ * @namespace employeeRoutes
  */
 var router = require("express").Router();
 
-const { isSignedIn, setUser } = require("../controllers/auth");
 const {
-  createBikeData,
-  editBikeData,
-  getBikeData,
-  getAllBikeDataByOwner,
-  getAllBikeData
-} = require('../controllers/bike')
-
-router.param('userId', setUser);
+  createEmployee,
+  editEmployeeData,
+  getEmployeeData,
+  deleteEmployeeData,
+  getAllEmployees
+} = require('../controllers/employee')
 
 /**
-  * Route serving creating bike.
-  * @name POST /bike/create
+  * Route serving creating employee.
+  * @name POST /employee/create
   * @function
-  * @memberof module:routes/bike~bikeRoutes
+  * @memberof module:routes/employee~employeeRoutes
   * @inner
   * @returns {object} 201 - Created
-  * @returns {Error} 401 - UnAuthorized Error
   * @returns {Error} 409 - Conflict Error
   * @returns {Error} 400 - Unexpected Error
   */
-router.post('/create', isSignedIn, createBikeData)
+router.post('/create', createEmployee)
 
 /**
-  * Route serving edit bike.
-  * @name PUT /bike/edit/:id
+  * Route serving edit employee.
+  * @name PUT /employee/edit/:id
   * @function
-  * @memberof module:routes/bike~bikeRoutes
+  * @memberof module:routes/employee~employeeRoutes
   * @inner
   * @returns {object} 200 - OK
-  * @returns {Error} 401 - UnAuthorized Error
   * @returns {Error} 400 - Unexpected Error
   */
 
-router.put('/edit/:id/:userId', isSignedIn, editBikeData);
+router.put('/edit/:id', editEmployeeData);
 
 /**
-  * Route serving get bike by id.
-  * @name GET /bike/:id
+  * Route serving get employee by id.
+  * @name GET /employee/:id
   * @function
-  * @memberof module:routes/bike~bikeRoutes
+  * @memberof module:routes/employee~employeeRoutes
   * @inner
   * @returns {object} 200 - OK
-  * @returns {Error} 401 - UnAuthorized Error
   * @returns {Error} 400 - Unexpected Error
   */
 
-router.get('/:id/:userId', isSignedIn, getBikeData);
+router.get('/:id/', getEmployeeData);
 
 /**
-  * Route serving get bike by owner id.
-  * @name GET /bike/owner/:owner
+  * Route serving delete employee by  id.
+  * @name DELETE /employee/:id
   * @function
-  * @memberof module:routes/bike~bikeRoutes
+  * @memberof module:routes/employee~employeeRoutes
   * @inner
   * @returns {object} 200 - OK
-    * @returns {Error} 401 - UnAuthorized Error
-  * @returns {Error} 400 - Unexpected Error
-  */
-
-
-router.get('/owner/:owner/:userId', isSignedIn, getAllBikeDataByOwner);
-
-/**
-  * Route serving get all bikes.
-  * @name GET /bike
-  * @function
-  * @memberof module:routes/bike~bikeRoutes
-  * @inner
-  * @returns {object} 200 - OK
-  * @returns {Error} 401 - UnAuthorized Error
   * @returns {Error} 400 - Unexpected Error
   */
 
 
-router.get('/:userId', isSignedIn, getAllBikeData);
+router.delete('/id', deleteEmployeeData);
+
+/**
+  * Route serving get all employee.
+  * @name GET /employee
+  * @function
+  * @memberof module:routes/employee~employeeRoutes
+  * @inner
+  * @returns {object} 200 - OK
+  * @returns {Error} 400 - Unexpected Error
+  */
+
+
+router.get('/all', getAllEmployees);
 
 module.exports = router;
