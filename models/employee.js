@@ -1,43 +1,46 @@
 //Import Module's
 const mongoose = require("mongoose");
-const bike = new mongoose.Schema(
-	{
-        owner: {
-            type: mongoose.Schema.ObjectId,
-            required: true,
-            ref: 'User',
-        },
-		bikeMake: {
-			type: String,
-			trim: true,
-			required: true
-		},
-		bikeModel: {
+const employeeScheme = new mongoose.Schema(
+    {
+        name: {
             type: String,
-			trim: true,
+            trim: true,
             required: true
         },
-        engineNumber: {
+        email: {
             type: String,
-			trim: true,
-			required: true
-        },
-        registrationNumber: {
-            type: String,
-			trim: true,
-			required: true,
+            trim: true,
+            unique: true,
+            required: true
         },
         isActive: {
             type: Boolean,
-            default: true
+            default: true,
         },
         isDeleted: {
             type: Boolean,
-            default: false
-        }
-	},
-	{timestamps: true},
+            default: false,
+        },
+        department: {
+            type: String,
+            required: true
+        },
+        dateOfBirth: {
+            type: String,
+            required: true
+        },
+        gender: {
+            type: String,
+            required: true,
+            enum: ["Male", "Female", "Other"]
+        },
+        age: {
+            type: Number,
+            required: true
+        },
+    },
+    { timestamps: true },
 );
 
-// Export the Schema with the name Bike.
-module.exports = mongoose.model("Bike", bike);
+// Export the Schema with the name Employee.
+module.exports = mongoose.model("", employeeScheme);

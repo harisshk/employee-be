@@ -2,9 +2,9 @@ const Bike = require('../models/bike')
 const { StatusCodes } = require("http-status-codes");
 const User = require('../models/user');
 
-const createBikeData = async (req, res) => {
+const createEmployee = async (req, res) => {
     try {
-        let preData = await Bike.findOne({ registrationNumber: req.body.registrationNumber })
+        let preData = await Employee.findOne({ email: req.body.email })
         if (preData) {
             return res.status(StatusCodes.CONFLICT).json({
                 success: true,
@@ -12,11 +12,10 @@ const createBikeData = async (req, res) => {
                 message: "DUPLICATE_DATA",
             });
         }
-        const newBikeData = await new Bike(req?.body).save();
-        await User.findByIdAndUpdate({ _id: req?.body?.owner }, { $push: { bikes: newBikeData?._id } })
+        const newEmployeeData = await new Employee(req?.body).save();
         res.status(StatusCodes.CREATED).json(({
             success: true,
-            data: newBikeData
+            data: newEmployeeData
         }))
 
     } catch (error) {
