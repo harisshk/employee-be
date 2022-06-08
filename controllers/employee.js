@@ -79,6 +79,7 @@ const getAllEmployees = async (req, res) => {
         }))
 
     } catch (error) {
+        console.log(error)
         return res.status(StatusCodes.BAD_REQUEST).json({
             message: "Error in getting the Employee Data",
             success: false,

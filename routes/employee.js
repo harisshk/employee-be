@@ -52,7 +52,7 @@ router.put('/edit/:id', editEmployeeData);
   * @returns {Error} 400 - Unexpected Error
   */
 
-router.get('/:id/', getEmployeeData);
+router.get('/:id', getEmployeeData);
 
 /**
   * Route serving delete employee by  id.
@@ -65,7 +65,7 @@ router.get('/:id/', getEmployeeData);
   */
 
 
-router.delete('/id', deleteEmployeeData);
+router.delete('/:id', deleteEmployeeData);
 
 /**
   * Route serving get all employee.
@@ -78,6 +78,6 @@ router.delete('/id', deleteEmployeeData);
   */
 
 
-router.get('/all', getAllEmployees);
+router.get('/', getAllEmployees);
 
 module.exports = router;
